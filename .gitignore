@@ -1,0 +1,18 @@
+# Build output
+bin/
+obj/
+
+# SQLite databases
+*.db
+*.db-shm
+*.db-wal
+
+# IDE / tooling
+.vs/
+.vscode/
+*.user
+*.suo
+
+# OS cruft
+.DS_Store
+Thumbs.db
