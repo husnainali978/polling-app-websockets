@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Polls — raw WebSockets demo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Live Polls</h1>
+    <p class="tagline">ASP.NET Core Minimal API + raw <code>System.Net.WebSockets</code> — no SignalR involved.</p>
+  </header>
+
+  <main>
+    <section class="panel" id="create-panel">
+      <h2>Create a poll</h2>
+      <form id="create-form">
+        <label class="field">
+          <span>Question</span>
+          <input type="text" id="question-input" placeholder="What should we build next?" required maxlength="500" />
+        </label>
+
+        <div id="options-container" class="field">
+          <span>Options</span>
+          <div class="option-row"><input type="text" class="option-input" placeholder="Option 1" required maxlength="200" /></div>
+          <div class="option-row"><input type="text" class="option-input" placeholder="Option 2" required maxlength="200" /></div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="add-option-btn" class="btn-secondary">+ Add option</button>
+          <button type="submit" class="btn-primary">Create poll</button>
+        </div>
+        <p id="create-error" class="error" hidden></p>
+      </form>
+    </section>
+
+    <section class="panel" id="list-panel">
+      <h2>Polls</h2>
+      <ul id="poll-list"><li class="empty">No polls yet — create one to get started.</li></ul>
+    </section>
+
+    <section class="panel" id="poll-panel">
+      <div class="poll-header">
+        <h2 id="poll-question">Select a poll</h2>
+        <span id="connection-status" class="status status-idle">not connected</span>
+      </div>
+      <p class="hint">
+        Copy this page's URL, open it in a second tab, and select the same poll there.
+        Vote in one tab and watch the tally update in the other — instantly, over the open WebSocket,
+        with no polling and no page refresh.
+      </p>
+
+      <div id="options-list"></div>
+      <p id="total-votes" class="total-votes"></p>
+
+      <details id="log-panel">
+        <summary>WebSocket message log</summary>
+        <pre id="log-output"></pre>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <p>Every open tab on a poll is tracked server-side in an in-memory connection manager; a vote broadcasts to all of them over their own socket.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
